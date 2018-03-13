@@ -1,1 +1,1 @@
-# imajinz
+# Imajinz
