@@ -15,7 +15,7 @@ const http = require('http');
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
-  if (port === null) {
+  if (Number.isNaN(port)) {
     // named pipe
     return val;
   }
