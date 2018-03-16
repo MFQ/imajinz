@@ -14,6 +14,10 @@ module.exports = {
     dialect: 'postgres',
   },
   production: {
-    use_env_variable: process.env.DATABASE_URL || '',
+    username: process.env.DB_USERNAME || 'root',
+    password: process.env.DB_PASSWORD || null,
+    database: process.env.DB_NAME || 'imajinz_test',
+    host: process.env.DB_HOSTNAME || '127.0.0.1',
+    dialect: 'postgres',
   },
 };
