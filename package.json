@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "lint": "eslint .",
     "dev-start": "nodemon ./bin/www",
-    "test": "mocha --recursive test"
+    "test": "mocha --recursive --exit test"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
