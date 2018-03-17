@@ -1,11 +1,7 @@
 const assert = require('assert');
 const Sequelize = require('sequelize');
-const sysConfig = require('./../../config.js');
 
-const dbConfig = require('./../../config/db.js')[sysConfig.get('env')];
-
-console.log('__________________');
-console.log(sysConfig.get('env'));
+const dbConfig = require('./../../config/db.js').test;
 
 describe('Verify database', () => {
   it('should respond to database connection', (done) => {
