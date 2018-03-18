@@ -11,9 +11,9 @@ describe('Verify database', () => {
         assert.ok(true);
         done();
       })
-      .catch(() => {
+      .catch((e) => {
         assert.fail('unable to authenticate database');
-        done();
+        done(e);
       });
   });
 });
