@@ -17,5 +17,5 @@ block content
   
   each image in images
     span
-      img(src='/images/#{image.url}')
+      img(src='/images/#{image.url}' data-url='#{image.url}')
       span Name: #{image.name}
