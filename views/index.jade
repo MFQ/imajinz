@@ -3,3 +3,19 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  
+  form(name='image-upload' action='/images' method='post' enctype="multipart/form-data")
+    input(type='file' name='file' accept="image/*")
+    br
+    
+    Name
+    input(type='text' name='name')
+    
+    input(type='submit' value='Post Image')
+    
+  br 
+  
+  each image in images
+    span
+      img(src='/images/#{image.url}')
+      span Name: #{image.name}

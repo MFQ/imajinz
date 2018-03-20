@@ -5,6 +5,8 @@
     },
     "globals": {
       "describe": false,
-      "it": false
+      "it": false,
+      "beforeEach": false,
+      "after": false
     }
 }
