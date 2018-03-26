@@ -8,4 +8,5 @@ WORKDIR /app
 RUN npm install --production --silent
 RUN npm install pm2 -g
 RUN npm install sequelize-cli -g
+RUN npm install
 EXPOSE 3000
