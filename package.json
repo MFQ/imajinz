@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "lint": "./node_modules/.bin/eslint .",
     "dev-start": "nodemon ./bin/www",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --timeout 10000 --recursive --exit test"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --timeout 10000 --recursive --exit test",
+    "prod-start": "NODE_ENV=production pm2 start ./bin/www --name imajinz"
   },
   "dependencies": {
     "body-parser": "~1.18.2",

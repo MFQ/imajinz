@@ -1,0 +1,36 @@
+version: '2'
+services:
+  imajinz:
+    build: .
+    command: npm run start
+    volumes:
+      - ./:/app
+      - /usr/app/node_modules
+    depends_on:
+      - postgres
+    environment:
+      DB_USERNAME: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      NODE_ENV: ${NODE_ENV}
+    links:
+      - database
+    depends_on:
+      - database
+  database:
+    image: postgres:10.3-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./tmp:/var/lib/postgresql/data
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - imajinz:imajinz
+    ports:
+      - "80:80"
