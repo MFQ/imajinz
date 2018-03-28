@@ -2,7 +2,7 @@ version: '2'
 services:
   imajinz:
     build: .
-    command: npm run start
+    command: npm run prod-start
     volumes:
       - ./:/app
       - /usr/app/node_modules
