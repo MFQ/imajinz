@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     instanceMethods: {
       generatePasswordHash: () => {
         this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8), null);
-      }
+      },
+      validPassword: (password) => {
+        return bcrypt.compareSync(password, this.local.password);
+      },
     },
     hooks: {
       beforeCreate: (instance, options) => {},
