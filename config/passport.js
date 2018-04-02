@@ -52,11 +52,8 @@ module.exports = (passport) => {
             email,
             password: User.generatePasswordHash(password),
           });
-          // newUser.save(err => done(null, newUser));
           return newUser.save()
-            .then((_newUser) => {
-              return done(null, _newUser);
-            })
+            .then(_newUser => done(null, _newUser))
             .catch((err) => {
               console.log(err);
               return done(null, false, req.flash('signupMessage', 'unable to create a user'));

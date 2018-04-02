@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const passport = require('passport');
+const session = require('express-session');
 
 const morgan = require('morgan');
 require('./config/passport')(passport);
@@ -27,6 +28,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
+app.use(session({
+  secret: 'imajinz', // session secret
+  resave: true,
+  saveUninitialized: true,
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
