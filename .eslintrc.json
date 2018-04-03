@@ -2,7 +2,8 @@
     "extends": "airbnb-base",
     "rules": {
       "no-console": 0,
-      "no-unused-expressions": "off"
+      "no-unused-expressions": "off",
+      "no-param-reassign": "off"
     },
     "globals": {
       "describe": false,
