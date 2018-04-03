@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const passport = require('passport');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
 const morgan = require('morgan');
 require('./config/passport')(passport);
@@ -31,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'imajinz', // session secret
   resave: true,
-  saveUninitialized: true,
+  store: new RedisStore(),
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
