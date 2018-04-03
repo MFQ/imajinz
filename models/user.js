@@ -13,5 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(passwordKey, this.password);
   };
 
+  User.addHook('beforeCreate', (user) => {
+    user.password = User.generatePasswordHash();
+  });
+
   return User;
 };

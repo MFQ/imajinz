@@ -52,7 +52,7 @@ module.exports = (passport) => {
           }
           const newUser = User.build({
             email,
-            password: User.generatePasswordHash(password),
+            password,
           });
           return newUser.save()
             .then(_newUser => done(null, _newUser))
@@ -61,6 +61,8 @@ module.exports = (passport) => {
               return done(null, false, req.flash('signupMessage', 'unable to create a user'));
             });
         });
+      } else {
+        return done(null, req.user);
       }
     });
   }));
