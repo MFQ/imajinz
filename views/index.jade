@@ -1,6 +1,11 @@
 extends layout
 
 block content
+  if user
+    a(href='/logout') 
+      = 'signout ' + user.email
+    
+
   h1= title
   p Welcome to #{title}
   
@@ -16,6 +21,9 @@ block content
   br 
   
   each image in images
-    span
+    div
       img(src='/images/#{image.url}' data-url='#{image.url}')
       span Name: #{image.name}
+      if user && user.admin
+        a(href='#' class='delete' data-url=image.url)
+          = 'Delete'
