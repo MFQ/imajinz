@@ -21,9 +21,9 @@ block content
   br 
   
   each image in images
-    span
+    div
       img(src='/images/#{image.url}' data-url='#{image.url}')
       span Name: #{image.name}
-    if user && user.admin
-      a(href='#')
-        = 'Delete'
+      if user && user.admin
+        a(href='#' class='delete' data-url=image.url)
+          = 'Delete'

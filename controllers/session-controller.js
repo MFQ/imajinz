@@ -6,9 +6,7 @@ const sessionController = {
     res.render('sessions/signup', { message: req.flash('signupMessage') });
   },
   logout: (req, res, next) => {
-    // req.session.destroy()
     req.logout();
-    // res.redirect('/')
     req.session.destroy((err) => {
       if (err) {
         next(err);

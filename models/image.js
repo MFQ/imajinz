@@ -1,3 +1,4 @@
+const fs = require('fs');
 
 module.exports = (sequelize, DataTypes) => {
   const Image = sequelize.define('Image', {
@@ -8,5 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     tags: DataTypes.STRING,
   }, {});
+
+  Image.addHook('beforeDestroy', (image) => {
+    console.log('______________I AM CALLED');
+    fs.unlinkSync(`uploads/${image.url}`);
+  });
+
   return Image;
 };

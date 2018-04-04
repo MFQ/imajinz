@@ -14,6 +14,7 @@ const authenticationMiddleware = require('../middleware/authention');
 module.exports = () => {
   router.get('/', homeController.home);
   router.post('/images', fileUploadMiddleware, imagesController.create);
+  router.delete('/images/:url', imagesController.deleteImage);
   router.get('/images/:url', imagesController.getImage);
 
   router.get('/login', authenticationMiddleware.isNotLoggedIn, loginController.login);
