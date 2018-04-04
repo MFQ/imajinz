@@ -5,9 +5,17 @@ const sessionController = {
   signup: (req, res) => {
     res.render('sessions/signup', { message: req.flash('signupMessage') });
   },
-  logout: (req, res) => {
+  logout: (req, res, next) => {
+    // req.session.destroy()
     req.logout();
-    res.redirect('/');
+    // res.redirect('/')
+    req.session.destroy((err) => {
+      if (err) {
+        next(err);
+      }
+      req.user = null;
+      res.redirect('/');
+    });
   },
 };
 

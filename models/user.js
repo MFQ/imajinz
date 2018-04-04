@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     user_name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    admin: DataTypes.BOOLEAN,
   }, {});
 
   User.generatePasswordHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

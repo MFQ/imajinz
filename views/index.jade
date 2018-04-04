@@ -24,3 +24,6 @@ block content
     span
       img(src='/images/#{image.url}' data-url='#{image.url}')
       span Name: #{image.name}
+    if user && user.admin
+      a(href='#')
+        = 'Delete'

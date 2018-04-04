@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ const fileUploadMiddleware = require('../middleware/file-upload');
 const authenticationMiddleware = require('../middleware/authention');
 
 
-module.exports = (passport) => {
+module.exports = () => {
   router.get('/', homeController.home);
   router.post('/images', fileUploadMiddleware, imagesController.create);
   router.get('/images/:url', imagesController.getImage);
@@ -23,7 +24,7 @@ module.exports = (passport) => {
   }));
 
   router.get('/signup', authenticationMiddleware.isNotLoggedIn, loginController.signup);
-  router.get('/logout', authenticationMiddleware.isLoggedIn, loginController.logout);
+  router.get('/logout', loginController.logout);
   router.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/',
     failureRedirect: '/signup',

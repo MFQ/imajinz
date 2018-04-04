@@ -10,7 +10,7 @@ const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
 const morgan = require('morgan');
-require('./config/passport')(passport);
+require('./config/passport');
 
 const routes = require('./routes/index');
 
@@ -19,14 +19,12 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', '/images/icon/favicon.ico')));
 app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 // required for passport
 app.use(session({
@@ -34,8 +32,13 @@ app.use(session({
   resave: true,
   store: new RedisStore(),
 }));
+
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use('/', routes(passport));
