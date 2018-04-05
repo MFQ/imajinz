@@ -28,16 +28,6 @@ async function boot() {
   worker.on('error', (error, queue, job) => { console.log(`error ${queue} ${JSON.stringify(job)}  >> ${error}`); });
   worker.on('pause', () => { console.log('worker paused'); });
 
-  // //////////////////////
-  // CONNECT TO A QUEUE //
-  // //////////////////////
-
-  const queue = new NodeResque.Queue({ connection: connectionDetails }, jobs);
-  queue.on('error', (error) => { console.log(error); });
-  await queue.connect();
-  await queue.enqueue('images', 'convertImageToSVG', [1]);
-  jobsToComplete = 1;
-
   // ////////////////////////////
   // EXITING WORKER GRACEFULLY //
   // ////////////////////////////

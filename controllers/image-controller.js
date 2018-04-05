@@ -2,8 +2,6 @@ const model = require('../models');
 
 const Images = model.Image;
 
-const fetchImage = url => Images.find({ where: { url } });
-
 const imagesController = {
 
   create: (req, res) => {
@@ -16,7 +14,7 @@ const imagesController = {
   },
 
   deleteImage: (req, res) => {
-    fetchImage(req.params.url).then((image) => {
+    Images.findByUrl(req.params.url).then((image) => {
       image.destroy().then((err) => {
         if (err.length !== 0) throw err;
         res.send({ status: true });
@@ -34,8 +32,8 @@ const imagesController = {
       },
     };
 
-    fetchImage(req.params.url).then((image) => {
-      res.sendFile(`uploads/${image.url}`, options, (err) => {
+    Images.findByUrl(req.params.url).then((image) => {
+      res.sendFile(image.getURL(), options, (err) => {
         if (err) {
           next(err);
         }

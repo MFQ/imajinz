@@ -7,7 +7,8 @@
     "lint": "./node_modules/.bin/eslint .",
     "dev-start": "nodemon ./bin/www",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --timeout 10000 --recursive --exit test",
-    "prod-start": "NODE_ENV=production pm2 start --no-daemon ./bin/www"
+    "prod-start": "NODE_ENV=production pm2 start --no-daemon ./bin/www",
+    "start-worker": "node ./worker.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -31,7 +32,8 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.36.1",
     "sequelize-cli": "^4.0.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "sharp": "^0.20.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
