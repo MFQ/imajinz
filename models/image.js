@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     const queue = new NodeResque.Queue({ connection: connectionDetails }, jobs);
     queue.on('error', (error) => { console.log(error); });
     queue.connect();
-    queue.enqueue('images', 'convertImageToSVG', [image]);
+    queue.enqueue('images', 'resizeImage', [image]);
   });
 
   return Image;

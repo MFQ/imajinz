@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const Images = model.Image;
 
 module.exports = {
-  convertImageToSVG: {
+  resizeImage: {
     perform: async (image) => {
       const hexString = crypto.randomBytes(20).toString('hex');
       const processedImageTitle = `${hexString}-${image.name}.png`;
