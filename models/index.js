@@ -3,10 +3,10 @@ const path = require('path');
 const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
-// const env = process.env.NODE_ENV || 'development';
+
 const sysConfig = require('./../config.js');
 
-const dbConfig = require.resolve('./../config/db.json')[sysConfig.get('env')];
+const dbConfig = require('./../config/db.js')[sysConfig.get('env')];
 
 const db = {};
 let sequelize;

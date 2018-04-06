@@ -1,5 +1,29 @@
 extends layout
 
 block content
+  if user
+    a(href='/logout') 
+      = 'signout ' + user.email
+    
+
   h1= title
   p Welcome to #{title}
+  
+  form(name='image-upload' action='/images' method='post' enctype="multipart/form-data")
+    input(type='file' name='file' accept="image/*")
+    br
+    
+    Name
+    input(type='text' name='name')
+    
+    input(type='submit' value='Post Image')
+    
+  br 
+  
+  each image in images
+    div
+      img(src='/images/#{image.url}' data-url='#{image.url}')
+      span Name: #{image.name}
+      if user && user.admin
+        a(href='#' class='delete' data-url=image.url)
+          = 'Delete'

@@ -1,8 +1,7 @@
 const assert = require('assert');
 const Sequelize = require('sequelize');
-const sysConfig = require('./../../config.js');
 
-const dbConfig = require('./../../config/db.js')[sysConfig.get('env')];
+const dbConfig = require('./../../config/db.js').test;
 
 describe('Verify database', () => {
   it('should respond to database connection', (done) => {
@@ -12,9 +11,9 @@ describe('Verify database', () => {
         assert.ok(true);
         done();
       })
-      .catch(() => {
+      .catch((e) => {
         assert.fail('unable to authenticate database');
-        done();
+        done(e);
       });
   });
 });
