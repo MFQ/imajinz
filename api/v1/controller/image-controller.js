@@ -1,4 +1,7 @@
 const model = require('../../../models');
+const jobs = require('../../../jobs');
+const connectionDetails = require('../../../config/redis.js');
+const NodeResque = require('node-resque');
 
 const Images = model.Image;
 
@@ -29,5 +32,12 @@ module.exports = {
         status: 500,
       });
     });
+  },
+  createByUrl: (req, res) => {
+    const queue = new NodeResque.Queue({ connection: connectionDetails }, jobs);
+    queue.on('error', (error) => { console.log(error); });
+    queue.connect();
+    queue.enqueue('images', 'uploadImageByUrl', [req.body]);
+    res.json({ status: 200, processing: true });
   },
 };

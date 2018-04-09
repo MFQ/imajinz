@@ -8,5 +8,6 @@ const fileUploadMiddleware = require('../../middleware/file-upload');
 router.get(`${NAMESPACE}/status`, (req, res) => res.json({ status: true, version: '1.0' }));
 router.get(`${NAMESPACE}/images`, imageApiController.getAll);
 router.post(`${NAMESPACE}/images`, fileUploadMiddleware, imageApiController.create);
+router.post(`${NAMESPACE}/imagesbyurl`, imageApiController.createByUrl);
 
 module.exports = router;
