@@ -10,6 +10,8 @@ const loginController = require('../controllers/session-controller');
 const fileUploadMiddleware = require('../middleware/file-upload');
 const authenticationMiddleware = require('../middleware/authention');
 
+const apiV1Router = require('../api/v1/router');
+
 
 module.exports = () => {
   router.get('/', homeController.home);
@@ -31,5 +33,7 @@ module.exports = () => {
     failureRedirect: '/signup',
     failureFlash: true,
   }));
+
+  router.use(apiV1Router);
   return router;
 };
