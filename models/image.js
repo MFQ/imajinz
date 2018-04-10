@@ -3,6 +3,9 @@ const NodeResque = require('node-resque');
 const jobs = require('.././jobs');
 const connectionDetails = require('.././config/redis.js');
 
+const queue = new NodeResque.Queue({ connection: connectionDetails }, jobs);
+queue.on('error', (error) => { console.log(error); });
+
 module.exports = (sequelize, DataTypes) => {
   const Image = sequelize.define('Image', {
     name: DataTypes.STRING,
@@ -12,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     tags: DataTypes.STRING,
     processed: DataTypes.BOOLEAN,
+    flagged: DataTypes.BOOLEAN,
   }, {});
 
   Image.findByUrl = url => Image.find({ where: { url } });
@@ -29,10 +33,15 @@ module.exports = (sequelize, DataTypes) => {
     // CONNECT TO A QUEUE //
     // //////////////////////
     if (!image.processed) {
-      const queue = new NodeResque.Queue({ connection: connectionDetails }, jobs);
-      queue.on('error', (error) => { console.log(error); });
       queue.connect();
       queue.enqueue('images', 'resizeImage', [image]);
+    }
+  });
+
+  Image.addHook('afterUpdate', (image) => {
+    if (image.processed && image.flagged === null) {
+      queue.connect();
+      queue.enqueue('images', 'enhancingVision', [image]);
     }
   });
 
