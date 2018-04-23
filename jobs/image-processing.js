@@ -41,7 +41,7 @@ module.exports = {
         .toFormat('png')
         .toFile(`processed-assets/${processedImageTitle}`, (err) => {
           if (err) {
-            throw err;
+            console.log(err);
           }
           Images.findByUrl(image.url).then((img) => {
             img.url = processedImageTitle;
