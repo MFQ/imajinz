@@ -30,7 +30,7 @@ describe('Index page specs ', () => {
           _method: 'post',
           name: 'name',
         })
-        .attach('file', fs.readFileSync(`${__dirname}/img.jpg`), 'img.jpg')
+        .attach('file', fs.readFileSync(`${__dirname}/../resources/img.jpg`), 'img.jpg')
         .end((err, res) => {
           response = res;
           $ = cheerio.load(response.text);
