@@ -41,14 +41,18 @@ module.exports = {
         .toFormat('png')
         .toFile(`processed-assets/${processedImageTitle}`, (err) => {
           if (err) {
-            throw err;
+            console.log(err);
           }
           Images.findByUrl(image.url).then((img) => {
-            img.url = processedImageTitle;
-            img.processed = true;
-            img.save().then((i) => {
-              console.log(`${i.name} image is processed`);
-            });
+            if (img) {
+              img.url = processedImageTitle;
+              img.processed = true;
+              img.save().then((i) => {
+                console.log(`${i.name} image is processed`);
+              });
+            }
+          }).catch((e) => {
+            console.log(e);
           });
         });
     },
