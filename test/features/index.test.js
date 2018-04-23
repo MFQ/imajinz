@@ -30,9 +30,4 @@ describe('Index page specs ', () => {
     expect($('form').length).to.equal(1);
     done();
   });
-
-  it('It should have form to upload images', (done) => {
-    expect($('img').length).to.equal(1);
-    done();
-  });
 });
