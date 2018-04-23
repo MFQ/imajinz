@@ -44,11 +44,15 @@ module.exports = {
             console.log(err);
           }
           Images.findByUrl(image.url).then((img) => {
-            img.url = processedImageTitle;
-            img.processed = true;
-            img.save().then((i) => {
-              console.log(`${i.name} image is processed`);
-            });
+            if (img) {
+              img.url = processedImageTitle;
+              img.processed = true;
+              img.save().then((i) => {
+                console.log(`${i.name} image is processed`);
+              });
+            }
+          }).catch((e) => {
+            console.log(e);
           });
         });
     },
