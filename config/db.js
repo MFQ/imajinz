@@ -1,6 +1,6 @@
 module.exports = {
   development: {
-    username: process.env.DB_USERNAME || 'root',
+    username: process.env.DB_USERNAME || null,
     password: process.env.DB_PASSWORD || null,
     database: process.env.DB_NAME || 'imajinz_development',
     host: process.env.DB_HOSTNAME || '127.0.0.1',

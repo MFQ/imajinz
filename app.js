@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
+const winston = require('./config/winston');
 
 const morgan = require('morgan');
 require('./config/passport');
@@ -23,8 +24,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', '/images/icon/favicon.ico')));
-app.use(morgan('dev'));
-
+app.use(morgan('combined', { stream: winston.stream }));
 
 // required for passport
 app.use(session({
@@ -53,6 +53,7 @@ app.use((err, req, res) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
+  winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
   res.status(err.status || 500);
   res.render('error');
 });
